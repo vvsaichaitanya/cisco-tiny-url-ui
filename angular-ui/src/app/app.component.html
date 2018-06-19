@@ -1,0 +1,67 @@
+<mat-toolbar color="warn">
+  <span class="title">Remember Complex URL's With Ease</span>
+</mat-toolbar>
+
+<div class="app-content">
+
+  <!-- Material Tab -->
+  <mat-card>
+    <mat-card-content>
+      <mat-tab-group>
+        <mat-tab label="Shorten Url">
+          <div class="example-container">
+            <mat-form-field>
+              <input matInput placeholder="URL" #name>
+            </mat-form-field>
+          </div>
+          <div class="app-button">
+            <button class="get-button" matTooltip="Info about the action" mat-fab (click)="shortenUrl(name)" color="primary">
+              <i class="material-icons">
+                send
+              </i>
+            </button>
+          </div>
+        </mat-tab>
+        <mat-tab label="Recent Activity" (selectedTabChange)="getRecentActivity()">
+          <!-- Material List -->
+          <mat-card>
+            <mat-card-content>
+              <h2 class="example-h2">Recently shortened Urls</h2>
+              <div>
+                <div class="get-button">
+                  <button class="get-button" mat-fab [disabled]="(this.currentPage - 10) == 0" (click)="getRecentActivity(this.currentPage - 10)" color="warn">
+                    <i class="material-icons">
+                      chevron_left
+                    </i>
+                  </button>
+                </div>
+                <div class="get-button">
+                  <button class="get-button" mat-fab [disabled]="(this.currentPage + 10) > this.totalRecords" (click)="getRecentActivity(this.currentPage + 10)" color="warn">
+                    <i class="material-icons">
+                      chevron_right
+                    </i>
+                  </button>
+                </div>
+                <div class="get-button">
+                  <button class="get-button" mat-fab (click)="getRecentActivity(10)" color="primary">
+                    <i class="material-icons">
+                      refresh
+                    </i>
+                  </button>
+                </div>
+              </div>
+              <mat-list class="app-list">
+                <mat-list-item class="app-list" *ngFor="let url of this.shortenedUrls">
+                  <h3 class="format" mat-line>Original URL: {{url.URL}}</h3>
+                  <p class="format" mat-line class="demo-secondary-text">Short URL: localhost:5000/short/{{url.ID}}</p>
+                </mat-list-item>
+              </mat-list>
+            </mat-card-content>
+          </mat-card>
+          <!-- /Material List -->
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+  <!-- /Material Tab -->
+</div>
